@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('NB_JRS_REPOS');
             $table->date('DATE_REPOS');
+            $table->unsignedBigInteger('ID_CONSULT');
             $table->timestamps();
         });
     }

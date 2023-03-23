@@ -13,7 +13,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        return rendezvous::select('id','date_rdv','heure_rdv','nom','prenom','num_tel')->get();
+        return rendezvous::select('id','date_rdv','heure_rdv','nom','prenom','num_tel','ID_CONSULT')->get();
     }
 
     /**
@@ -26,7 +26,8 @@ class RendezVousController extends Controller
             'heure_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
-            'num_tel' => 'required'
+            'num_tel' => 'required',
+            'ID_CONSULT' => 'required'
         ]);
         RendezVous::create($request->post());
         return response()->json([
@@ -62,7 +63,8 @@ class RendezVousController extends Controller
             'heure_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
-            'num_tel' => 'required'
+            'num_tel' => 'required',
+            'ID_CONSULT' => 'required'
         ]);
         $rendezVous = RendezVous::findOrFail($id);
         $rendezVous->fill($request->post())->update();

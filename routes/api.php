@@ -10,6 +10,7 @@ use App\Http\Controllers\CertificatMedicalController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RendezVousController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,4 @@ Route::resource('facture', FactureController::class);
 Route::resource('admin', AdminController::class);
 
 Route::resource('rendez_vous', RendezVousController::class);
-Route::get('/rendez_vous/{id}', 'RendezVousController@show');
+Route::resource('service', ServiceController::class);

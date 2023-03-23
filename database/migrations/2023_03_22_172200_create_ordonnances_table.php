@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ordonnances', function (Blueprint $table) {
             $table->id();
             $table->date('DATE_ORDONNANCE');
+            $table->unsignedBigInteger('ID_CONSULT');
             $table->timestamps();
         });
     }

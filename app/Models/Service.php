@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CertificatMedical extends Model
+class Service extends Model
 {
     use HasFactory;
-    protected $fillable = ['NB_JRS_REPOS','DATE_REPOS','ID_CONSULT'];
+    protected $fillable = ['NOM_SERVICE','PRIX'];
 }

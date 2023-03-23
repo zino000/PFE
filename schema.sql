@@ -1,5 +1,5 @@
 CREATE TABLE PATIENT (
-  CIN INTEGER(5) PRIMARY KEY,
+  id INTEGER(5) PRIMARY KEY,
   NOM VARCHAR(10),
   PRENOM VARCHAR(10),
   GENRE VARCHAR(10),
@@ -7,59 +7,51 @@ CREATE TABLE PATIENT (
 );
 
 CREATE TABLE CONSULTATIONS (
-  ID_CONSULT INTEGER(5) AUTO INCREMENT PRIMARY KEY,
+  id INTEGER(5) AUTO INCREMENT PRIMARY KEY,
   DATE_CONSULT DATE,
   TAILLE INTEGER(3),
   POIDS INTEGER(3)
-  CIN_PATIENT INT(5),
-  FOREIGN KEY (CIN_PATIENT) REFERENCES PATIENT(CIN)
 );
 
 CREATE TABLE MEDICAMENT (
-  ID_MEDIC INTEGER(5) AUTO INCREMENT PRIMARY KEY,
+  id INTEGER(5) AUTO INCREMENT PRIMARY KEY,
   NOM VARCHAR(15),
   PRESENTATION BOOLEAN,
 );
 
 CREATE TABLE ORDONNANCE (
-  NUM_ORDONNANCE INTEGER(5) AUTO INCREMENT PRIMARY KEY,
+  id INTEGER(5) AUTO INCREMENT PRIMARY KEY,
   ID_MEDIC INTEGER,
   DATE_ORDONNANCE DATE,
-  CIN_PATIENT INT,
-  FOREIGN KEY (CIN_PATIENT) REFERENCES PATIENT(CIN),
-  FOREIGN KEY (ID_MEDIC) REFERENCES MEDICAMENT(ID_MEDIC)
+  ID_CONSULT INT
 );
 
 CREATE TABLE CERTIFICAT_MEDICAL (
-  NUM_CERTIF INTEGER(5) AUTO INCREMENT PRIMARY KEY,
+  id INTEGER(5) AUTO INCREMENT PRIMARY KEY,
   NB_JRS_REPOS INT,
   DATE_REPOS DATE,
-  CIN_PATIENT INT,
-  FOREIGN KEY (CIN_PATIENT) REFERENCES PATIENT(CIN)
+  ID_CONSULT INT
 );
 
 CREATE TABLE RENDEZ_VOUS (
-  ID_RDV INTEGER(5) AUTO INCREMENT PRIMARY KEY,
+  ID INTEGER(5) AUTO INCREMENT PRIMARY KEY,
   DATE_RDV DATE,
   HEURE_RDV INT,
-  CIN_PATIENT INT,
-  FOREIGN KEY (CIN_PATIENT) REFERENCES PATIENT(CIN)
+  ID_CONSULT INT
 );
 
 CREATE TABLE FACTURE (
-  ID_FACTURE INT PRIMARY KEY,
+  ID INT PRIMARY KEY,
   PRIX DOUBLE,
-  CIN_PATIENT INT,
-  FOREIGN KEY (CIN_PATIENT) REFERENCES PATIENT(CIN)
+  ID_CONSULT INT
 );
 
-php artisan make:model patients -m
-php artisan make:model consultations -m
-php artisan make:model medicaments -m
-php artisan make:model ordonnances -m
-php artisan make:model certificat_medical -m
-php artisan make:model rendez_vous -m
-php artisan make:model factures -m
+Create table service (
+  id int primary key,
+  NOM_SERVICE varchar,
+  PRIX double
+);
+
 
 php artisan make:model Patient -mcr
 php artisan make:model Consultation -mcr
@@ -68,4 +60,5 @@ php artisan make:model Ordonnance -mcr
 php artisan make:model CertificatMedical -mcr
 php artisan make:model RendezVous -mcr
 php artisan make:model Facture -mcr
+php artisan make:model Service -mcr
 php artisan make:model Admin -mcr

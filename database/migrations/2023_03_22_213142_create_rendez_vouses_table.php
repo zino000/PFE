@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('num_tel');
+            $table->unsignedBigInteger('ID_CONSULT');
             $table->timestamps();
         });
     }

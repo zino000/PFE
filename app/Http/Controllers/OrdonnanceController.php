@@ -13,7 +13,7 @@ class OrdonnanceController extends Controller
      */
     public function index()
     {
-        return ordonnance::select('id','DATE_ORDONNANCE')->get();
+        return ordonnance::select('id','DATE_ORDONNANCE','ID_CONSULT')->get();
     }
 
     /**
@@ -22,7 +22,8 @@ class OrdonnanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'DATE_ORDONNANCE' => 'required'
+            'DATE_ORDONNANCE' => 'required',
+            'ID_CONSULT' => 'required'
         ]);
         ordonnance::create($request->post());
         return response()->json([
@@ -46,7 +47,8 @@ class OrdonnanceController extends Controller
     public function update(Request $request, ordonnance $ordonnance)
     {
         $request->validate([
-            'DATE_ORDONNANCE' => 'required'
+            'DATE_ORDONNANCE' => 'required',
+            'ID_CONSULT' => 'required'
         ]);
         $ordonnance->fill($request->post())->update();
         return response()->json([
