@@ -62,3 +62,13 @@ php artisan make:model RendezVous -mcr
 php artisan make:model Facture -mcr
 php artisan make:model Service -mcr
 php artisan make:model Admin -mcr
+
+php artisan make:factory Patient --model=Patient 
+php artisan make:factory Medicament --model=Medicament
+php artisan make:factory Consultation  --model=Consultation
+php artisan make:factory Ordonnance --model=Ordonnance
+php artisan make:factory CertificatMedical --model=CertificatMedical
+php artisan make:factory RendezVous --model=RendezVous
+php artisan make:factory Facture --model=Facture
+php artisan make:factory Service --model=Service
+php artisan make:factory Admin --model=Admin
