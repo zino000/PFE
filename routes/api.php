@@ -9,6 +9,7 @@ use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\CertificatMedicalController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ServiceController;
 
@@ -37,3 +38,12 @@ Route::resource('admin', AdminController::class);
 
 Route::resource('rendez_vous', RendezVousController::class);
 Route::resource('service', ServiceController::class);
+
+
+
+Route::post('login' , [loginController::class , 'login'])->middleware('auth:sunctum');
+Route::delete('logout' , [loginController::class , 'logout']);
+
+
+
+
