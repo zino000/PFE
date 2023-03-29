@@ -2,24 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Return_;
+
 
 class loginController extends Controller
 {
-    
-    public function login(Request $request) : Response
-    {
-        $crendentials = $request->only('email' , 'password') ;
 
-        if(Auth::attempt($crendentials)){
-            return response(Auth::user() , 200);
+    
+    public function login(Request $request) 
+    {
+        try{
+            $request->validate([
+                'email'=>'required',
+                'password'=>'required'
+            ]);
+            $email = $request->post();
+            $user = User::where('email',$request->post())->first();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Admin logged In successfuly',
+                'token' => $user->createToken("remember_token")->plainTextToken
+            ],200);
         }
-        abort(491) ;
+            catch(\Throwable $th){
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage()
+                ],500);
+            }
+            
+        
     }
+         
 
     public function logout(){
         Auth::logout();

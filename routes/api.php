@@ -24,9 +24,8 @@ use App\Http\Controllers\ServiceController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [LoginController::class, 'login']);
+Route::delete('logout' , [loginController::class , 'logout']);
 
 Route::resource('patient', PatientController::class);
 Route::resource('consultation', ConsultationController::class);
@@ -41,8 +40,7 @@ Route::resource('service', ServiceController::class);
 
 
 
-Route::post('login' , [loginController::class , 'login'])->middleware('auth:sunctum');
-Route::delete('logout' , [loginController::class , 'logout']);
+
 
 
 
