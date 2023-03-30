@@ -20,7 +20,7 @@ class loginController extends Controller
                 'email'=>'required',
                 'password'=>'required'
             ]);
-            $email = $request->post();
+
             $user = User::where('email',$request->post())->first();
 
             return response()->json([
