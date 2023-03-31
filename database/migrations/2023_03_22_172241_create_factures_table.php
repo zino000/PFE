@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('factures', function (Blueprint $table) {
             $table->id();
-            $table->double('PRIX');
-            $table->unsignedBigInteger('ID_CONSULT');
+            $table->double('prix');
+            $table->unsignedBigInteger('id_consult');
             $table->timestamps();
         });
     }

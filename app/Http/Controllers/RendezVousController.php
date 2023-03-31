@@ -17,7 +17,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        return rendezvous::select('id','date_rdv','nom','prenom','genre','num_tel','date_naissance','id_ser')->get();
+        return rendezvous::select('id','date_rdv','nom','prenom','temp_dep' ,'temp_fin','genre','num_tel','date_naissance','id_ser')->get();
     }
 
     /**
@@ -29,6 +29,8 @@ class RendezVousController extends Controller
             'date_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
+            'temp_dep'=> 'required',
+            'temp_fin' => 'require',
             'num_tel' => 'required',
             'genre'=> 'required',
             'date_naissance'=> 'required',
@@ -56,6 +58,8 @@ class RendezVousController extends Controller
             'date_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
+            'temp_dep'=> 'required',
+            'temp_fin' => 'required',
             'num_tel' => 'required',
             'genre'=> 'required',
             'date_naissance'=> 'required',
@@ -90,12 +94,14 @@ class RendezVousController extends Controller
         $patient->save();
         $consultation = new Consultation();
         $consultation->date_consult = $rendezVous->date_rdv;
+        $consultation->temp_dep = $rendezVous->temp_dep;
+        $consultation->temp_fin = $rendezVous->temp_fin;
         $consultation->id_pat =$patient->id;
         $consultation->id_ser = $rendezVous->id_ser;
         $consultation->save();
-        $service = Service::findorFail($rendezVous->id_ser);
+        $service = Service::find($rendezVous->id_ser);
         $facture = new facture();
-        $facture->prix = $service->PRIX;
+        $facture->prix = $service->prix;
         return response()->json([
             'message' => 'Rendez Vous confirmed',
             'cosultation' => $consultation

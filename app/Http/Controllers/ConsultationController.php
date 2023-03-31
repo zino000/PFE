@@ -13,7 +13,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        return consultation::select('id','DATE_CONSULT','id_pat','id_ser')->get();
+        return consultation::select('id','date_consult','temp_dep','temp_fin','id_pat','id_ser')->get();
     }
 
     /**
@@ -22,7 +22,9 @@ class ConsultationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'DATE_CONSULT' => 'required',
+            'date_consult' => 'required',
+            'temp_dep' => 'required',
+            'temp_fin' => 'required',
             'id_pat' => 'required',
             'id_ser' => 'required'
         ]);
@@ -48,7 +50,9 @@ class ConsultationController extends Controller
     public function update(Request $request, consultation $consultation)
     {
         $request->validate([
-            'DATE_CONSULT' => 'required',
+            'date_consult' => 'required',
+            'temp_dep' => 'required',
+            'temp_fin' => 'required',
             'id_pat' => 'required',
             'id_ser' => 'required'
         ]);

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class RendezVous extends Model
 {
     use HasFactory;
-    protected $fillable=['date_rdv','nom','prenom','genre','num_tel','date_naissance','id_ser'];
+    protected $fillable=['date_rdv','temp_dep','temp_fin','nom','prenom','genre','num_tel','date_naissance','id_ser'];
 }

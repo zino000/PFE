@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('NOM', 10);
-            $table->string('PRENOM', 10);
-            $table->string('GENRE', 10);
-            $table->date('DATE_NAISSANCE');
+            $table->string('nom', 10);
+            $table->string('prenom', 10);
+            $table->string('genre', 10);
+            $table->date('date_naissance');
             $table->timestamps();
         });
     }

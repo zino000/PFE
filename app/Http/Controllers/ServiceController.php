@@ -11,14 +11,14 @@ class ServiceController extends Controller
 
     public function index()
     {
-        return service::select('id','NOM_SERVICE','PRIX')->get();
+        return service::select('id','nom','prix')->get();
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'NOM_SERVICE' => 'required',
-            'PRIX' => 'required',
+            'nom' => 'required',
+            'prix' => 'required',
         ]);
         service::create($request->post());
         return response()->json([
@@ -50,8 +50,8 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'NOM_SERVICE' => 'required',
-            'PRIX' => 'required',
+            'nom' => 'required',
+            'prix' => 'required'
         ]);
         $service->fill($request->post())->update();
         return response()->json([

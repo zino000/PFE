@@ -13,7 +13,7 @@ class CertificatMedicalController extends Controller
      */
     public function index()
     {
-        return certificatmedical::select('id','NB_JRS_REPOS','DATE_REPOS','ID_CONSULT')->get();
+        return certificatmedical::select('id','nb_jrs','date','id_consult')->get();
     }
 
     /**
@@ -22,9 +22,9 @@ class CertificatMedicalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NB_JRS_REPOS' => 'required',
-            'DATE_REPOS' => 'required',
-            'ID_CONSULT' => 'required'
+            'nb_jrs' => 'required',
+            'date' => 'required',
+            'id_consult' => 'required'
         ]);
         certificatmedical::create($request->post());
         return response()->json([
@@ -48,9 +48,9 @@ class CertificatMedicalController extends Controller
     public function update(Request $request, certificatmedical $certificatmedical)
     {
         $request->validate([
-            'NB_JRS_REPOS' => 'required',
-            'DATE_REPOS' => 'required',
-            'ID_CONSULT' => 'required'
+            'nb_jrs' => 'required',
+            'date' => 'required',
+            'id_consult' => 'required'
         ]);
         $certificatmedical->fill($request->post())->update();
         return response()->json([

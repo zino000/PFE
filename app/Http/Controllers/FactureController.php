@@ -13,7 +13,7 @@ class FactureController extends Controller
      */
     public function index()
     {
-        return Facture::select('id','PRIX','ID_CONSULT')->get();
+        return Facture::select('id','prix','id_consult')->get();
     }
 
     /**
@@ -22,8 +22,8 @@ class FactureController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'PRIX' => 'required',
-            'ID_CONSULT' => 'required'
+            'prix' => 'required',
+            'id_consult' => 'required'
         ]);
         Facture::create($request->post());
         return response()->json([
@@ -47,8 +47,8 @@ class FactureController extends Controller
     public function update(Request $request, Facture $Facture)
     {
         $request->validate([
-            'PRIX' => 'required', 
-            'ID_CONSULT' => 'required'
+            'prix' => 'required', 
+            'id_consult' => 'required'
         ]);
         $Facture->fill($request->post())->update();
         return response()->json([

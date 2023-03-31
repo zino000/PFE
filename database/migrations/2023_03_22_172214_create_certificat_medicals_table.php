@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('certificat_medicals', function (Blueprint $table) {
             $table->id();
-            $table->integer('NB_JRS_REPOS');
-            $table->date('DATE_REPOS');
-            $table->unsignedBigInteger('ID_CONSULT');
+            $table->date('date');
+            $table->integer('nb_jrs');
+            $table->unsignedBigInteger('id_consult');
             $table->timestamps();
         });
     }

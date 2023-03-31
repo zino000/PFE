@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
-            $table->date('DATE_CONSULT');
+            $table->date('date_consult');
+            $table->time('temp_dep');
+            $table->time('temp_fin');
             $table->unsignedBigInteger('id_pat');
             $table->unsignedBigInteger('id_ser');
             $table->timestamps();

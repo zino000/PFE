@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('NOM_SERVICE');
-            $table->double('PRIX');
+            $table->string('nom');
+            $table->double('prix');
             $table->timestamps();
         });
     }

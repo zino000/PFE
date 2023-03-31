@@ -13,7 +13,7 @@ class MedicamentController extends Controller
      */
     public function index()
     {
-        return medicament::select('id','NOM','PRESENTATION')->get();
+        return medicament::select('id','nom','presentation')->get();
     }
 
     /**
@@ -22,8 +22,8 @@ class MedicamentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NOM' => 'required',
-            'PRESENTATION' => 'required',
+            'nom' => 'required',
+            'presentation' => 'required',
         ]);
         medicament::create($request->post());
         return response()->json([
@@ -47,8 +47,8 @@ class MedicamentController extends Controller
     public function update(Request $request, medicament $medicament)
     {
         $request->validate([
-            'NOM' => 'required',
-            'PRESENTATION' => 'required',
+            'nom' => 'required',
+            'presentation' => 'required',
         ]);
         $medicament->fill($request->post())->update();
         return response()->json([

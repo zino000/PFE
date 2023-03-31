@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('medicaments', function (Blueprint $table) {
             $table->id();
-            $table->string('NOM', 15);
-            $table->bigInteger('PRESENTATION');
+            $table->string('nom', 15);
+            $table->bigInteger('presentation');
             $table->timestamps();
         });
     }
