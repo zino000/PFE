@@ -13,7 +13,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        return consultation::select('id','DATE_CONSULT','TAILLE','POIDS')->get();
+        return consultation::select('id','DATE_CONSULT','id_pat','id_ser')->get();
     }
 
     /**
@@ -23,8 +23,8 @@ class ConsultationController extends Controller
     {
         $request->validate([
             'DATE_CONSULT' => 'required',
-            'TAILLE' => 'required',
-            'POIDS' => 'required',
+            'id_pat' => 'required',
+            'id_ser' => 'required'
         ]);
         consultation::create($request->post());
         return response()->json([
@@ -49,8 +49,8 @@ class ConsultationController extends Controller
     {
         $request->validate([
             'DATE_CONSULT' => 'required',
-            'TAILLE' => 'required',
-            'POIDS' => 'required',
+            'id_pat' => 'required',
+            'id_ser' => 'required'
         ]);
         $consultation->fill($request->post())->update();
         return response()->json([

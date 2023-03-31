@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Consultation extends Model
 {
     use HasFactory;
-    protected $fillable = ['DATE_CONSULT','TAILLE','POIDS'];
+    protected $fillable = ['DATE_CONSULT','id_ser'];
 }

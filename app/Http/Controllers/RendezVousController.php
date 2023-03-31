@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\RendezVous;
+use App\Models\Patient;
+use App\Models\Service;
+use App\Models\Facture;
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 
 class RendezVousController extends Controller
@@ -13,7 +17,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        return rendezvous::select('id','date_rdv','heure_rdv','nom','prenom','num_tel','ID_CONSULT')->get();
+        return rendezvous::select('id','date_rdv','nom','prenom','genre','num_tel','date_naissance','id_ser')->get();
     }
 
     /**
@@ -23,29 +27,19 @@ class RendezVousController extends Controller
     {
         $request->validate([
             'date_rdv' => 'required',
-            'heure_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
             'num_tel' => 'required',
-            'ID_CONSULT' => 'required'
+            'genre'=> 'required',
+            'date_naissance'=> 'required',
+            'id_ser' => 'required'
         ]);
+
         RendezVous::create($request->post());
         return response()->json([
             'message' => 'Rendez Vous created successfully'
         ]);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    /*
-    public function show(rendezvous $RendezVous)
-    {
-
-        return response()->json([
-            'RendezVous' => $RendezVous
-        ]);
-    }*/
 
     public function show($id)
     {
@@ -60,11 +54,12 @@ class RendezVousController extends Controller
     {
         $request->validate([
             'date_rdv' => 'required',
-            'heure_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
             'num_tel' => 'required',
-            'ID_CONSULT' => 'required'
+            'genre'=> 'required',
+            'date_naissance'=> 'required',
+            'id_ser' => 'required'
         ]);
         $rendezVous = RendezVous::findOrFail($id);
         $rendezVous->fill($request->post())->update();
@@ -83,5 +78,27 @@ class RendezVousController extends Controller
         return response()->json([
             'message' => 'Rendez Vous deleted successfully'
         ]);
+    }
+
+    public function confirm($id){
+        $rendezVous = RendezVous::findOrFail($id);
+        $patient = new Patient();
+        $patient->NOM = $rendezVous->nom;
+        $patient->PRENOM =$rendezVous->prenom;
+        $patient->GENRE =$rendezVous->genre;
+        $patient->DATE_NAISSANCE =$rendezVous->date_naissance;
+        $patient->save();
+        $consultation = new Consultation();
+        $consultation->date_consult = $rendezVous->date_rdv;
+        $consultation->id_pat =$patient->id;
+        $consultation->id_ser = $rendezVous->id_ser;
+        $consultation->save();
+        $service = Service::findorFail($rendezVous->id_ser);
+        $facture = new facture();
+        $facture->prix = $service->PRIX;
+        return response()->json([
+            'message' => 'Rendez Vous confirmed',
+            'cosultation' => $consultation
+        ],200);
     }
 }

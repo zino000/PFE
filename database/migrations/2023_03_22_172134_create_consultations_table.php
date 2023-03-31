@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
             $table->date('DATE_CONSULT');
-            $table->integer('TAILLE');
-            $table->integer('POIDS');
+            $table->unsignedBigInteger('id_pat');
+            $table->unsignedBigInteger('id_ser');
             $table->timestamps();
         });
     }

@@ -12,11 +12,12 @@ return new class extends Migration
         Schema::create('rendez_vouses', function (Blueprint $table) {
             $table->id();
             $table->date('date_rdv');
-            $table->integer('heure_rdv');
             $table->string('nom');
             $table->string('prenom');
+            $table->string('genre');
             $table->string('num_tel');
-            $table->unsignedBigInteger('ID_CONSULT');
+            $table->date('date_naissance');
+            $table->unsignedBigInteger('id_ser');
             $table->timestamps();
         });
     }
