@@ -86,12 +86,14 @@ class RendezVousController extends Controller
 
     public function confirm($id){
         $rendezVous = RendezVous::findOrFail($id);
+        
         $patient = new Patient();
-        $patient->NOM = $rendezVous->nom;
-        $patient->PRENOM =$rendezVous->prenom;
-        $patient->GENRE =$rendezVous->genre;
-        $patient->DATE_NAISSANCE =$rendezVous->date_naissance;
+        $patient->nom = $rendezVous->nom;
+        $patient->prenom =$rendezVous->prenom;
+        $patient->genre =$rendezVous->genre;
+        $patient->date_naissance =$rendezVous->date_naissance;
         $patient->save();
+
         $consultation = new Consultation();
         $consultation->date_consult = $rendezVous->date_rdv;
         $consultation->temp_dep = $rendezVous->temp_dep;
@@ -99,9 +101,13 @@ class RendezVousController extends Controller
         $consultation->id_pat =$patient->id;
         $consultation->id_ser = $rendezVous->id_ser;
         $consultation->save();
+
         $service = Service::find($rendezVous->id_ser);
         $facture = new facture();
         $facture->prix = $service->prix;
+        $facture->id_consult = $consultation->id;
+        $facture->save();
+
         return response()->json([
             'message' => 'Rendez Vous confirmed',
             'cosultation' => $consultation
