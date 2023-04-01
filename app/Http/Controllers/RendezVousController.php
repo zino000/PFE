@@ -95,7 +95,6 @@ class RendezVousController extends Controller
         $consultation = new Consultation();
         $consultation->date_consult = $rendezVous->date_rdv;
         $consultation->temp_dep = $rendezVous->temp_dep;
-        $consultation->temp_fin = $rendezVous->temp_fin;
         $consultation->id_pat =$patient->id;
         $consultation->id_ser = $rendezVous->id_ser;
         $consultation->save();
@@ -110,5 +109,39 @@ class RendezVousController extends Controller
             'message' => 'Rendez Vous confirmed',
             'cosultation' => $consultation
         ],200);
+    }
+
+    public function reserved_hours(Request $request){
+        $request->validate([
+            'date' => 'required',
+        ]);
+        $hours_rdv[] = RendezVous::select('temp_dep')->where('date_rdv', $request->date)->get();
+        $hours_consult[] =  Consultation::select('temp_dep')->where('date_consult',$request->date)->get();
+
+        if ( is_null($hours_rdv) ) {
+            if(is_null($hours_consult)){
+                return response()->json([
+                    'message' => 'pas de reservations'
+                ]);
+            }else{
+                return response()->json([
+                    'heures' => $hours_consult,
+                ]);
+            }
+        }else{
+            if(is_null($hours_consult)){
+                return response()->json([
+                    'heures' => $hours_rdv,
+                ]);
+            }else{
+                $hours[] = array_merge($hours_rdv,$hours_consult);
+                return response()->json([
+                    'heures' => $hours]
+                );
+            }
+        }
+        return response()->json([
+            'message' => 'pas de reservations'
+        ]);
     }
 }

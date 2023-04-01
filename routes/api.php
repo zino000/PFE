@@ -35,6 +35,7 @@ Route::resource('certificat_medical', CertificatMedicalController::class);
 Route::resource('facture', FactureController::class);
 Route::resource('admin', AdminController::class);
 
+Route::get('heures',[RendezVousController::class,'reserved_hours']);
 Route::resource('rendez_vous', RendezVousController::class);
 Route::get('rendez_vous/confirm/{id}',[RendezVousController::class,'confirm']);
 
