@@ -105,7 +105,7 @@ class RendezVousController extends Controller
         $facture->prix = $service->prix;
         $facture->id_consult = $consultation->id;
         $facture->save();
-
+        $rendezVous->delete();
         return response()->json([
             'message' => 'Rendez Vous confirmed',
             'cosultation' => $consultation
