@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->date('date_consult');
             $table->time('temp_dep');
-            $table->time('temp_fin');
             $table->unsignedBigInteger('id_pat');
             $table->unsignedBigInteger('id_ser');
             $table->timestamps();

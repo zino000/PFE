@@ -17,7 +17,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        return rendezvous::select('id','date_rdv','nom','prenom','temp_dep' ,'temp_fin','genre','num_tel','date_naissance','id_ser')->get();
+        return rendezvous::select('id','date_rdv','nom','prenom','temp_dep' ,'genre','num_tel','date_naissance','id_ser')->get();
     }
 
     /**
@@ -30,7 +30,6 @@ class RendezVousController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'temp_dep'=> 'required',
-            'temp_fin' => 'require',
             'num_tel' => 'required',
             'genre'=> 'required',
             'date_naissance'=> 'required',
@@ -59,7 +58,6 @@ class RendezVousController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'temp_dep'=> 'required',
-            'temp_fin' => 'required',
             'num_tel' => 'required',
             'genre'=> 'required',
             'date_naissance'=> 'required',

@@ -13,7 +13,6 @@ return new class extends Migration
             $table->id();
             $table->date('date_rdv');
             $table->time('temp_dep');
-            $table->time('temp_fin');
             $table->string('nom');
             $table->string('prenom');
             $table->string('genre');
