@@ -9,6 +9,7 @@ use App\Models\Facture;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RendezVousController extends Controller
 {
@@ -115,33 +116,18 @@ class RendezVousController extends Controller
         $request->validate([
             'date' => 'required',
         ]);
-        $hours_rdv[] = RendezVous::select('temp_dep')->where('date_rdv', $request->date)->get();
-        $hours_consult[] =  Consultation::select('temp_dep')->where('date_consult',$request->date)->get();
+        $hours= Consultation::select('consultations')
+                ->select('temp_dep AS heure')
+                ->where('date_consult', '=', $request->date)
+                ->union(Rendezvous::select('rendez_vouses')
+                    ->select('temp_dep AS heure')
+                    ->where('date_rdv', '=', $request->date)
+                )
+                ->get()
+                ->pluck('heure');;
 
-        if ( is_null($hours_rdv) ) {
-            if(is_null($hours_consult)){
-                return response()->json([
-                    'message' => 'pas de reservations'
-                ]);
-            }else{
-                return response()->json([
-                    'heures' => $hours_consult,
-                ]);
-            }
-        }else{
-            if(is_null($hours_consult)){
-                return response()->json([
-                    'heures' => $hours_rdv,
-                ]);
-            }else{
-                $hours[] = array_merge($hours_rdv,$hours_consult);
-                return response()->json([
-                    'heures' => $hours]
-                );
-            }
-        }
         return response()->json([
-            'message' => 'pas de reservations'
+            'heures' => $hours
         ]);
     }
 }
