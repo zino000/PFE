@@ -11,9 +11,12 @@ class CertificatMedicalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return certificatmedical::select('id','nb_jrs','date','id_consult')->get();
+        $request->validate([
+            'id' => 'required'
+        ]);
+        return certificatmedical::select('id','nb_jrs','date','id_consult')->where('id_consult',$request->id)->get();
     }
 
     /**
