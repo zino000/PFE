@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('rendez_vouses', function (Blueprint $table) {
             $table->id();
+            $table->string('cin');
             $table->date('date_rdv');
             $table->time('temp_dep');
             $table->string('nom');

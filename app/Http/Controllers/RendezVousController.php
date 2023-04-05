@@ -9,7 +9,7 @@ use App\Models\Facture;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate;
 
 class RendezVousController extends Controller
 {
@@ -18,7 +18,7 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        return rendezvous::select('id','date_rdv','nom','prenom','temp_dep' ,'genre','num_tel','date_naissance','id_ser')->get();
+        return rendezvous::select('cin','id','date_rdv','nom','prenom','temp_dep' ,'genre','num_tel','date_naissance','id_ser')->get();
     }
 
     /**
@@ -27,6 +27,7 @@ class RendezVousController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'cin' => 'required',
             'date_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
@@ -55,6 +56,7 @@ class RendezVousController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'cin' => 'required',
             'date_rdv' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
@@ -85,13 +87,17 @@ class RendezVousController extends Controller
 
     public function confirm($id){
         $rendezVous = RendezVous::findOrFail($id);
-        
-        $patient = new Patient();
-        $patient->nom = $rendezVous->nom;
-        $patient->prenom =$rendezVous->prenom;
-        $patient->genre =$rendezVous->genre;
-        $patient->date_naissance =$rendezVous->date_naissance;
-        $patient->save();
+        try {
+            $patient = Patient::where('cin',$rendezVous->cin)->firstorFail();
+        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $patient = new Patient();
+            $patient->cin = $rendezVous->cin;
+            $patient->nom = $rendezVous->nom;
+            $patient->prenom =$rendezVous->prenom;
+            $patient->genre =$rendezVous->genre;
+            $patient->date_naissance =$rendezVous->date_naissance;
+            $patient->save();
+        } 
 
         $consultation = new Consultation();
         $consultation->date_consult = $rendezVous->date_rdv;

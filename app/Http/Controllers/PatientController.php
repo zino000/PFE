@@ -13,7 +13,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return patient::select('id','nom','prenom','genre','date_naissance')->get();
+        return patient::select('cin','id','nom','prenom','genre','date_naissance')->get();
     }
 
     /**
@@ -22,6 +22,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'cin' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
             'genre' => 'required',
@@ -49,6 +50,7 @@ class PatientController extends Controller
     public function update(Request $request, patient $patient)
     {
         $request->validate([
+            'cin' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
             'genre' => 'required',
