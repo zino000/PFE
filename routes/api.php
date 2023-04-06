@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ServiceController;
+use App\Models\Consultation;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +39,14 @@ Route::resource('admin', AdminController::class);
 Route::get('heures',[RendezVousController::class,'reserved_hours']);
 Route::resource('rendez_vous', RendezVousController::class);
 Route::get('rendez_vous/confirm/{id}',[RendezVousController::class,'confirm']);
+Route::get('ordonnancebyid',[OrdonnanceController::class,'byid']);
 
 Route::resource('service', ServiceController::class);
 
+Route::get('consultAujourdhui',[ConsultationController::class,'consultAujourdhui']);
+Route::get('latest',[PatientController::class,'latest']);
 
-
-
+Route::get('consultationpatient',[ConsultationController::class,'indexPatient']);
 
 
 

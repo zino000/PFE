@@ -72,6 +72,13 @@ class PatientController extends Controller
             'message' => 'Patient deleted successfully'
         ]);
     }
+
+    public function latest(){
+        $lastTenRows = Patient::select('cin','id','nom','prenom','genre','date_naissance')->latest('created_at')->limit(10)->get();
+        return response()->json([
+            'patients' => $lastTenRows
+        ]);
+    }
 }
 
 

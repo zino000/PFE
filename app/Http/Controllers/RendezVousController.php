@@ -130,7 +130,7 @@ class RendezVousController extends Controller
                     ->where('date_rdv', '=', $request->date)
                 )
                 ->get()
-                ->pluck('heure');;
+                ->pluck('heure');
 
         return response()->json([
             'heures' => $hours

@@ -11,12 +11,16 @@ class OrdonnanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
+       return ordonnance::select('id', 'date_ordonnance', 'id_consult')->get()->toArray();
+    }
+
+    public function byid(Request $request){
         $request->validate([
             'id' => 'required'
         ]);
-        return ordonnance::select('id','date_ordonnance','id_consult')->where('id_consult',$request->id)->get();
+         return ordonnance::select('id','date_ordonnance','id_consult')->where('id_consult',$request->id)->get();
     }
 
     /**

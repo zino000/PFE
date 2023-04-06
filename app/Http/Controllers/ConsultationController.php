@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Consultation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ConsultationController extends Controller
 {
@@ -13,9 +14,21 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        return consultation::select('id','date_consult','temp_dep','id_pat','id_ser')->get();
+        return response()->json([
+            'consultations' => consultation::select('id','date_consult','temp_dep','id_pat','id_ser')->get()
+        ]);
     }
 
+    public function indexPatient(Request $request)
+    {
+        $request->validate([
+            'id_pat' => 'required',
+        ]
+        );
+        return response()->json([
+            'consultations' => consultation::select('id','date_consult','temp_dep','id_pat','id_ser')->where('id_pat',$request->id_pat)->get()
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -24,7 +37,6 @@ class ConsultationController extends Controller
         $request->validate([
             'date_consult' => 'required',
             'temp_dep' => 'required',
-            'temp_fin' => 'required',
             'id_pat' => 'required',
             'id_ser' => 'required'
         ]);
@@ -52,7 +64,6 @@ class ConsultationController extends Controller
         $request->validate([
             'date_consult' => 'required',
             'temp_dep' => 'required',
-            'temp_fin' => 'required',
             'id_pat' => 'required',
             'id_ser' => 'required'
         ]);
@@ -70,6 +81,17 @@ class ConsultationController extends Controller
         $consultation->delete();
         return response()->json([
             'message' => 'Consultation deleted successfully'
+        ]);
+    }
+
+    public function consultAujourdhui()
+    {
+        $currentDate = Carbon::today()->toDateString();
+
+        $consultations = Consultation::select('id','date_consult','temp_dep','id_pat','id_ser')->whereDate('date_consult', $currentDate)->get()->toArray();
+        
+        return response()->json([
+            'consultations' => $consultations
         ]);
     }
 }
