@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('cin');
-            $table->string('nom', 10);
-            $table->string('prenom', 10);
-            $table->string('genre', 10);
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('num_tel');
+            $table->string('genre');
             $table->date('date_naissance');
             $table->timestamps();
         });

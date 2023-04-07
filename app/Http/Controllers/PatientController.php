@@ -14,7 +14,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return patient::select('cin','id','nom','prenom','genre','date_naissance')->get();
+        return patient::select('cin','id','nom','prenom','num_tel','genre','date_naissance')->get();
     }
 
     /**
@@ -26,6 +26,7 @@ class PatientController extends Controller
             'cin' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
+            'num_tel' => 'required',
             'genre' => 'required',
             'date_naissance' => 'required'
         ]);
@@ -54,6 +55,7 @@ class PatientController extends Controller
             'cin' => 'required',
             'nom' => 'required',
             'prenom' => 'required',
+            'num_tel' => 'required',
             'genre' => 'required',
             'date_naissance' => 'required'
         ]);
@@ -75,7 +77,7 @@ class PatientController extends Controller
     }
 
     public function latest(){
-        $lastTenRows = Patient::select('cin','id','nom','prenom','genre','date_naissance')->latest('created_at')->limit(10)->get();
+        $lastTenRows = Patient::select('cin','id','nom','prenom','num_tel','genre','date_naissance')->latest('created_at')->limit(10)->get();
         return response()->json([
             'patients' => $lastTenRows
         ]);

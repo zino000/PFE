@@ -94,6 +94,7 @@ class RendezVousController extends Controller
             $patient->cin = $rendezVous->cin;
             $patient->nom = $rendezVous->nom;
             $patient->prenom =$rendezVous->prenom;
+            $patient->num_tel =$rendezVous->num_tel;
             $patient->genre =$rendezVous->genre;
             $patient->date_naissance =$rendezVous->date_naissance;
             $patient->save();
