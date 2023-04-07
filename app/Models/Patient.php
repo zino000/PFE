@@ -10,3 +10,5 @@ class Patient extends Model
     use HasFactory;
     protected $fillable = ['cin','nom','prenom','genre','date_naissance'];
 }
+
+

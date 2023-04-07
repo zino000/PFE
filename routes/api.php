@@ -48,6 +48,6 @@ Route::get('latest',[PatientController::class,'latest']);
 
 Route::get('consultationpatient',[ConsultationController::class,'indexPatient']);
 
-
+Route::get('exists',[PatientController::class,'patientExists']);
 
 

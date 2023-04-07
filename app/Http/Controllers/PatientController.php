@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PatientController extends Controller
 {
@@ -78,6 +79,22 @@ class PatientController extends Controller
         return response()->json([
             'patients' => $lastTenRows
         ]);
+    }
+
+    public function patientExists(Request $request){
+        $request->validate([
+            'cin' => 'required'
+        ]);
+        try{
+            $patient = Patient::where('cin',$request->cin)->firstorFail();
+            return response()->json([
+                'patient' => $patient->toArray()
+            ]);
+        }catch (ModelNotFoundException $e){
+            return response()->json([
+                'message' => 'null'
+            ]);
+        }
     }
 }
 
