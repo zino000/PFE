@@ -10,15 +10,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PatientFactory extends Factory
 {
-    protected $model = Flight::class;
+
     
     public function definition()
     {
         return [
-            'NOM' => $faker->lastName,
-            'PRENOM' => $faker->firstName,
-            'GENRE' => $faker->randomElement(['Homme', 'Femme']),
-            'DATE_NAISSANCE' => $faker->dateTimeBetween('-80 years', '-18 years'),
+            'cin' => fake()->numerify('########'),
+            'nom' => fake()->lastName,
+            'prenom' => fake()->firstName,
+            'num_tel' => fake()->phoneNumber,
+            'genre' => fake()->randomElement(['Homme', 'Femme']),
+            'date_naissance' => fake()->dateTimeBetween('-80 years', '-18 years'),
         ];
     }
 }

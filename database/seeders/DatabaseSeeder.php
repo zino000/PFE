@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\RendezVous;
+use App\Models\Consultation;
+use App\Models\Patient;
 use App\Models\service;
 use Illuminate\Database\Seeder;
 
@@ -11,6 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()->count(1)->create();
+        Patient::factory()->count(20)->create();
+        RendezVous::factory()->count(15)->create();
+        Consultation::factory()->count(50)->create();
         $examples = [[
             'nom' => 'Implants dentaires',
             'prix' => 1700,
